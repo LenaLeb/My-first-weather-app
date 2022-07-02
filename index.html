@@ -40,30 +40,33 @@
                 placeholder="Enter name of the city"
               />
             </form>
+            <div class="search-current">
+             <input
+                type="submit"
+                id="search-button"
+                class="btn btn-search"
+                value="Search"
+              />
+              <input
+                type="submit"
+                id="current-button"
+                class="btn btn-search"
+                value="Current"
+              />
+            </div>
           </div>
           <div class="col-6">
             <span class="City">
-              <span id="user-city">City</span>
+              <span id="user-city">City</span> </br>
               <span id="user-temp">tmp</span>
               <span class="temp-cl" id="c-temp">°C</span>/
-              <span class="temp-cl" id="f-temp">°F</span>
-              🌤
+              <span class="temp-cl" id="f-temp">°F</span> </br>
+              <span id="wind-speed">Wind speed</span></br>
+              <span id="humidity">Humidity</span></br>
+              <span id="weather-description">Weather description</span></br>
+              <span id="weather-icon"><img id="WI" src="http://openweathermap.org/img/wn/10d@2x.png" width="50" /></span></br>
             </span>
           </div>
-        </div>
-        <div class="search-current">
-          <input
-            type="submit"
-            id="search-button"
-            class="btn btn-search"
-            value="Search"
-          />
-          <input
-            type="submit"
-            id="current-button"
-            class="btn btn-search"
-            value="Current"
-          />
         </div>
       </div>
       <div class="Center">

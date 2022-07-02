@@ -70,12 +70,11 @@ h1 {
   display: block;
   margin: 0 auto;
   text-align: center;
-  margin-top: 30px;
   max-width: 950px;
   border-radius: 50px;
   border-style: solid;
   border-color: #5585b5;
-  padding: 25px 25px;
+  padding: 5px 25px;
 }
 
 .forecast {
@@ -123,4 +122,7 @@ h1 {
 .open-source-link {
   text-align: center;
   font-size: 18 pt;
+}
+.search-current {
+  margin-top: 15px;
 }

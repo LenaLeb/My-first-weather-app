@@ -1,23 +1,5 @@
 let currentTime = new Date();
-let currentTemperature = 22;
 let tempNow = null;
-
-function Cels() {
-  let tempNow = currentTemperature;
-  currentTemp.innerHTML = tempNow;
-  return tempNow;
-}
-function Fahr() {
-  let tempNow = Math.round((currentTemperature * 9) / 5 + 32);
-  currentTemp.innerHTML = tempNow;
-}
-function cityTemp(event) {
-  event.preventDefault();
-  let cityTitle = document.querySelector("#user-city");
-  let UserCity = document.querySelector("#city-input");
-  cityTitle.innerHTML = UserCity.value;
-  currentTemp.innerHTML = currentTemperature;
-}
 
 function formatDate(date) {
   let days = [
@@ -29,7 +11,6 @@ function formatDate(date) {
     "Friday",
     "Saturday",
   ];
-
   let months = [
     "January",
     "February",
@@ -44,13 +25,15 @@ function formatDate(date) {
     "November",
     "December",
   ];
-
   let currentDay = days[date.getDay()];
   let currentMonth = date.getMonth() + 1;
   if (currentMonth < 10) {
     currentMonth = `0${currentMonth}`;
   }
   let currentDate = date.getDate();
+  if (currentDate < 10) {
+    currentDate = `0${currentDate}`;
+  }
   let hours = date.getHours();
   let minutes = date.getMinutes();
   if (minutes < 10) {
@@ -68,16 +51,22 @@ searchForm.addEventListener("submit", stopLoad);
 let currentTemp = document.querySelector("#user-temp");
 currentTemp.innerHTML = tempNow;
 
-//New Code for search engine
 function showTemperature(response) {
   console.log(response);
   let city = response.data.name;
-  console.log(city);
-  let temperature = Math.round(response.data.main.temp);
-  console.log(temperature);
   let cityTitle = document.querySelector("#user-city");
   cityTitle.innerHTML = city;
-  currentTemp.innerHTML = temperature;
+  tempNow = Math.round(response.data.main.temp);
+  currentTemp.innerHTML = tempNow;
+  let wind = document.querySelector("#wind-speed");
+  wind.innerHTML = `Wind speed: ${response.data.wind.speed} m/s`;
+  let humidity = document.querySelector("#humidity");
+  humidity.innerHTML = `Humidity: ${response.data.main.humidity} %`;
+  let wDescription = document.querySelector("#weather-description");
+  wDescription.innerHTML = `Weather now is: ${response.data.weather[0].main}`;
+  let wIcon = document.querySelector("#WI");
+  let wIconSrc = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
+  wIcon.src = wIconSrc;
 }
 function getCurrentWeather() {
   navigator.geolocation.getCurrentPosition(LongLat);
@@ -94,7 +83,7 @@ function LongLat(position) {
 navigator.geolocation.getCurrentPosition(LongLat);
 let buttonCurrent = document.querySelector("#current-button");
 buttonCurrent.addEventListener("click", getCurrentWeather);
-//----------------------------------
+
 function SearchedCity() {
   let userCity = document.querySelector("#city-input").value;
   let apiKey = "b98b992438f00474232a60ace28c6068";
@@ -115,34 +104,34 @@ function stopLoad(event) {
   SearchedCity();
 }
 function ShowSearchedWeather(response) {
-  console.log(response);
   let city = response.data.name;
-  console.log(city);
-  let temperature = Math.round(response.data.main.temp);
-  console.log(temperature);
+  tempNow = Math.round(response.data.main.temp);
   let cityTitle = document.querySelector("#user-city");
   cityTitle.innerHTML = city;
-  currentTemp.innerHTML = temperature;
+  currentTemp.innerHTML = tempNow;
+  let wind = document.querySelector("#wind-speed");
+  wind.innerHTML = `Wind speed: ${response.data.wind.speed} m/s`;
+  let humidity = document.querySelector("#humidity");
+  humidity.innerHTML = `Humidity: ${response.data.main.humidity} %`;
+  let wDescription = document.querySelector("#weather-description");
+  wDescription.innerHTML = `Weather now is: ${response.data.weather[0].main}`;
+  let wIcon = document.querySelector("#WI");
+  let wIconSrc = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
+  wIcon.src = wIconSrc;
 }
 let buttonSearch = document.querySelector("#search-button");
 buttonSearch.addEventListener("click", stopLoad);
 
 function showTempInCels() {
   let tempValue = document.querySelector("#user-temp");
-  let TV = tempValue.textContent;
-  let TVC = Math.round(((Number(TV) - 32) / 5) * 9);
-  console.log(TVC);
-  tempValue.innerHTML = TVC;
+  tempValue.innerHTML = tempNow;
 }
 let Cbutton = document.querySelector("#c-temp");
 Cbutton.addEventListener("click", showTempInCels);
 
 function showTempInFahr() {
   let tempValue = document.querySelector("#user-temp");
-  let TV = tempValue.textContent;
-  let TVF = Math.round((Number(TV) / 9) * 5 + 32);
-  console.log(TVF);
-  tempValue.innerHTML = TVF;
+  tempValue.innerHTML = Math.round((Number(tempNow) / 9) * 5 + 32);
 }
 let Fbutton = document.querySelector("#f-temp");
 Fbutton.addEventListener("click", showTempInFahr);
